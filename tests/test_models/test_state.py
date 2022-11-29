@@ -1,45 +1,55 @@
 #!/usr/bin/python3
-
-""" module to test the State class """
+"""Unittest module for the State Class."""
 
 import unittest
-import io
-from unittest.mock import patch
+from datetime import datetime
+import time
 from models.state import State
+import re
+import json
+from models.engine.file_storage import FileStorage
+import os
+from models import storage
+from models.base_model import BaseModel
 
 
 class TestState(unittest.TestCase):
-    """ class containing unittests for the State class """
+
+    """Test Cases for the State class."""
+
     def setUp(self):
-        """ sets up instance of the State class for testing """
-        self.st = State()
-        dct = self.st.to_dict()
-        self.st2 = State(**dct)
+        """Sets up test methods."""
+        pass
 
-    def test_constructor(self):
-        """ tests the State constructor with no arguments """
-        self.assertTrue(hasattr(self.st, 'name'))
-        self.assertTrue(hasattr(self.st, 'id'))
-        self.assertTrue(hasattr(self.st, 'created_at'))
-        self.assertTrue(hasattr(self.st, 'updated_at'))
+    def tearDown(self):
+        """Tears down test methods."""
+        self.resetStorage()
+        pass
 
-    def test_constructor_kwargs(self):
-        """ tests the State constructor with arguments """
-        self.assertTrue(hasattr(self.st2, 'name'))
-        self.assertTrue(hasattr(self.st2, 'id'))
-        self.assertTrue(hasattr(self.st2, 'created_at'))
-        self.assertTrue(hasattr(self.st2, 'updated_at'))
+    def resetStorage(self):
+        """Resets FileStorage data."""
+        FileStorage._FileStorage__objects = {}
+        if os.path.isfile(FileStorage._FileStorage__file_path):
+            os.remove(FileStorage._FileStorage__file_path)
 
-    def test_str(self):
-        """ test the __str__ magic method """
-        expected = "[State] ({}) {}".format(self.st.id, str(self.st.__dict__))
-        with patch('sys.stdout', new=io.StringIO()) as fake:
-            print(self.st, end="")
-            output = fake.getvalue()
-            self.assertEqual(output, expected)
+    def test_8_instantiation(self):
+        """Tests instantiation of State class."""
 
-    def test_to_dict(self):
-        """ tests dictionary representation of a State instance """
-        dct = self.st.to_dict()
-        self.assertTrue('__class__' in dct.keys())
-        self.assertEqual(dct['__class__'], type(self.st).__name__)
+        b = State()
+        self.assertEqual(str(type(b)), "<class 'models.state.State'>")
+        self.assertIsInstance(b, State)
+        self.assertTrue(issubclass(type(b), BaseModel))
+
+    """
+    def test_8_attributes(self):
+        "Tests the attributes of State class."
+        attributes = storage.attributes()["State"]
+        o = State()
+        for k, v in attributes.items():
+            self.assertTrue(hasattr(o, k))
+            self.assertEqual(type(getattr(o, k, None)), v)
+    """
+
+
+if __name__ == "__main__":
+    unittest.main()

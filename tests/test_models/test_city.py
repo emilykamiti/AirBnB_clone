@@ -1,49 +1,54 @@
 #!/usr/bin/python3
-
-""" module to test the City class """
+"""Unittest module for the City Class."""
 
 import unittest
-import io
-from unittest.mock import patch
+from datetime import datetime
+import time
 from models.city import City
+import re
+import json
+from models.engine.file_storage import FileStorage
+import os
+from models import storage
+from models.base_model import BaseModel
 
 
 class TestCity(unittest.TestCase):
-    """ class containing unittests for the City class """
+
+    """Test Cases for the City class."""
+
     def setUp(self):
-        """ sets up instance of the City class for testing """
-        self.c = City()
-        dct = self.c.to_dict()
-        self.c2 = City(**dct)
-        self.c2.is_capital = "yes"
+        """Sets up test methods."""
+        pass
 
-    def test_constructor(self):
-        """ tests the City constructor with no arguments """
-        self.assertTrue(hasattr(self.c, 'state_id'))
-        self.assertTrue(hasattr(self.c, 'name'))
-        self.assertTrue(hasattr(self.c, 'id'))
-        self.assertTrue(hasattr(self.c, 'created_at'))
-        self.assertTrue(hasattr(self.c, 'updated_at'))
+    def tearDown(self):
+        """Tears down test methods."""
+        self.resetStorage()
+        pass
 
-    def test_constructor_kwargs(self):
-        """ tests the City constructor with arguments """
-        self.assertTrue(hasattr(self.c2, 'state_id'))
-        self.assertTrue(hasattr(self.c2, 'name'))
-        self.assertTrue(hasattr(self.c2, 'id'))
-        self.assertTrue(hasattr(self.c2, 'created_at'))
-        self.assertTrue(hasattr(self.c2, 'updated_at'))
-        self.assertTrue(hasattr(self.c2, 'is_capital'))
+    def resetStorage(self):
+        """Resets FileStorage data."""
+        FileStorage._FileStorage__objects = {}
+        if os.path.isfile(FileStorage._FileStorage__file_path):
+            os.remove(FileStorage._FileStorage__file_path)
 
-    def test_str(self):
-        """ test the __str__ magic method """
-        expected = "[City] ({}) {}".format(self.c.id, str(self.c.__dict__))
-        with patch('sys.stdout', new=io.StringIO()) as fake:
-            print(self.c, end="")
-            output = fake.getvalue()
-            self.assertEqual(output, expected)
+    def test_8_instantiation(self):
+        """Tests instantiation of City class."""
 
-    def test_to_dict(self):
-        """ tests dictionary representation of a City instance """
-        dct = self.c.to_dict()
-        self.assertTrue('__class__' in dct.keys())
-        self.assertEqual(dct['__class__'], type(self.c).__name__)
+        b = City()
+        self.assertEqual(str(type(b)), "<class 'models.city.City'>")
+        self.assertIsInstance(b, City)
+        self.assertTrue(issubclass(type(b), BaseModel))
+
+    """
+    def test_8_attributes(self):
+        'Tests the attributes of City class.'
+        storage.attributes()["City"]
+        o = City()
+        for k, v in storage.attributes()["City"].items():
+            self.assertTrue(hasattr(o, k))
+            self.assertEqual(type(getattr(o, k, None)), v)
+    """
+
+if __name__ == "__main__":
+    unittest.main()

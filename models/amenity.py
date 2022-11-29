@@ -1,10 +1,11 @@
 #!/usr/bin/python3
-
-""" class that defines an Amenity class """
-
+"""
+Sub_class of the BaseModel
+"""
 from models.base_model import BaseModel
 
 
 class Amenity(BaseModel):
-    """ Amenity class """
+    """ Declare the name attribute """
+
     name = ""

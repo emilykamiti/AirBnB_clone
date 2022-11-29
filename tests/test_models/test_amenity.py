@@ -1,43 +1,55 @@
 #!/usr/bin/python3
-
-""" module to test the amenity class """
+"""Unittest module for the Amenity Class."""
 
 import unittest
-import io
-from unittest.mock import patch
+from datetime import datetime
+import time
 from models.amenity import Amenity
+import re
+import json
+from models.engine.file_storage import FileStorage
+import os
+from models import storage
+from models.base_model import BaseModel
 
 
 class TestAmenity(unittest.TestCase):
-    """ class containing unittests for the Amenity class """
+
+    """Test Cases for the Amenity class."""
+
     def setUp(self):
-        """ sets up instance of the Amenity class for testing """
-        self.am = Amenity()
-        dct = self.am.to_dict()
-        self.am2 = Amenity(**dct)
+        """Sets up test methods."""
+        pass
 
-    def test_constructor(self):
-        """ tests the Amenity constructor with no arguments """
-        self.assertTrue(hasattr(self.am, 'id'))
-        self.assertTrue(hasattr(self.am, 'name'))
-        self.assertTrue(hasattr(self.am, 'created_at'))
-        self.assertTrue(hasattr(self.am, 'updated_at'))
+    def tearDown(self):
+        """Tears down test methods."""
+        self.resetStorage()
+        pass
 
-    def test_constructor_kwargs(self):
-        """ tests the Amenity constructor with arguments """
-        self.assertTrue(hasattr(self.am2, 'name'))
+    def resetStorage(self):
+        """Resets FileStorage data."""
+        FileStorage._FileStorage__objects = {}
+        if os.path.isfile(FileStorage._FileStorage__file_path):
+            os.remove(FileStorage._FileStorage__file_path)
 
-    def test_str(self):
-        """ test the __str__ magic method """
-        expected = "[Amenity] ({}) {}".format(self.am.id,
-                                              str(self.am.__dict__))
-        with patch('sys.stdout', new=io.StringIO()) as fake:
-            print(self.am, end="")
-            output = fake.getvalue()
-            self.assertEqual(output, expected)
+    def test_8_instantiation(self):
+        """Tests instantiation of Amenity class."""
 
-    def test_to_dict(self):
-        """ tests dictionary representation of a Amenity instance """
-        dct = self.am.to_dict()
-        self.assertTrue('__class__' in dct.keys())
-        self.assertEqual(dct['__class__'], type(self.am).__name__)
+        b = Amenity()
+        self.assertEqual(str(type(b)), "<class 'models.amenity.Amenity'>")
+        self.assertIsInstance(b, Amenity)
+        self.assertTrue(issubclass(type(b), BaseModel))
+
+    """
+    def test_8_attributes(self):
+        'Tests the attributes of Amenity class.'
+        storage.attributes()["Amenity"]
+        o = Amenity()
+        for k, v in storage.attributes()["Amenity"].items():
+            self.assertTrue(hasattr(o, k))
+            self.assertEqual(type(getattr(o, k, None)), v)
+    """
+
+
+if __name__ == "__main__":
+    unittest.main()

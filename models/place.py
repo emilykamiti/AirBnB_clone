@@ -1,16 +1,17 @@
 #!/usr/bin/python3
-
-""" module containing the Place class """
-
+"""
+Sub_class of the BaseModel class
+"""
 from models.base_model import BaseModel
 
 
 class Place(BaseModel):
-    """ class that acts as a blueprint for a Place instance """
+    """ declare some attributes selated to place """
+
     city_id = ""
     user_id = ""
     name = ""
-    description = ""
+    desctiption = ""
     number_rooms = 0
     number_bathrooms = 0
     max_guest = 0

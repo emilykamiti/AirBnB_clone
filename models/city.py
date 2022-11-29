@@ -1,11 +1,12 @@
 #!/usr/bin/python3
-
-""" module containing the City class """
-
+"""
+Sub_class City of class BaseModel
+"""
 from models.base_model import BaseModel
 
 
 class City(BaseModel):
-    """ class that acts as a blueprint for a City instance """
+    """ the city name and id """
+
     state_id = ""
     name = ""

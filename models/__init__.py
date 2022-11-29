@@ -1,7 +1,5 @@
 #!/usr/bin/python3
-
-""" module to create a unique FileStorage instance """
-
+""" Initializes the model dictionary """
 from models.engine.file_storage import FileStorage
 
 storage = FileStorage()
