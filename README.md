@@ -1,13 +1,14 @@
-AirBnb Clone - The Console!
+#AirBnb Clone - The Console!
 Authors
-Stefan Silverio
-Susan Su
-Table of Contents
+Emily Kamiti
+Degefom Berhe
+
+##Table of Contents
 Description of the Project
 Description of the Console
 How to Start It
 How to Use It
-Examples
+##Examples
 Description of the Project
 The 'AirBnb Clone - The Console' project served as an introduction to creating a full web application based on AirBnb. In this step, we focused on building the foundation for future aspects of our project (HTML/CSS templating, database storage, API, and front-end integration).
 
@@ -31,12 +32,12 @@ Create a file storage for storage engine use.
 FileStorage Class
 Create unittests to validate all classes and the storage engine.
 
-Description of the Console
+##Description of the Console
 Working hand in hand with the components that we built for our project (BaseModel, FileStorage, etc.), the console will be used for access of the functionalities offered by our components.
 
 For example, we will be able to achieve the following with our console:
 
-Create a new object
+##Create a new object
 Retrieve an object from a file, database, etc.
 Perform operations on objects
 Update attributes of objects
@@ -50,7 +51,7 @@ Prior to using our console, please ensure that all files from the master branch 
 How to Use It
 The following commands are available in the console:
 
-create
+###create
 
 This command creates a new instance of the specified class. The new instance of the specified class is saved to a JSON file and the id is printed to the standard output.
 If the class name is missing, the message '** class name missing **' will be printed.
@@ -62,19 +63,20 @@ If the class name is missing, the message '** class name missing **' will be pri
 If the class name does not exist, the message '** class doesn't exist **' will be printed.
 If the id is missing, the message '** instance id missing **' will be printed.
 If the instance of the class name does not exist for the given id, the message '** no instance found **' will be printed.
-destroy
+
+###destroy
 
 Given the class name and id of an instance, this command will delete the specified instance.
 If the class name is missing, the message '** class name missing **' will be printed.
 If the class name does not exist, the message '** class doesn't exist **' will be printed.
 If the id is missing, the message '** instance id missing **' will be printed.
 If the instance of the class name does not exist for the given id, the message '** no instance found **' will be printed.
-all
+###all
 
 Given the class name, this command will print the string representation of all instances under the specified class. If no class name is specified, all existing objects will be printed.
 The printed result will be in a list of strings.
 If the class name does not exist, the message '** class doesn't exist **' will be printed.
-update
+###update
 
 Given the class name, id, attribute name, and attribute value, this command will update the attribute value of the specified instance.
 If the class name is missing, the message '** class name missing **' will be printed.
@@ -85,7 +87,7 @@ If the attribute name is missing, the message '** attribute name missing **' wil
 If the value for the attribute is missing, the message '** value missing **' will be printed.
 All arguments after the attribute value will be ignored.
 Only attributes with values of a string, integer, or float type can be updated.
-count
+###count
 Given the class name, this command will print out the number of objects under the specified class.
 These commands can be recognized by one or two standardized formats. The available formats are as follows:
 
